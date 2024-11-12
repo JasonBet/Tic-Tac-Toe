@@ -15,4 +15,14 @@ const Gameboard = (function() {
 function Cell() {
     let value = 0;
 
+    const addPlayerMark = (player) => {
+        value = player;
+    };
+
+    const getValue = () => value;
+
+    return{
+        addPlayerMark,
+        getValue
+    };
 }
