@@ -1,4 +1,4 @@
-function Gameboard() {
+const Gameboard = (function() {
     const rows = 3;
     const columns = 3;
     const board = [];
@@ -10,8 +10,9 @@ function Gameboard() {
         }
     }
     
-}
+})();
 
 function Cell() {
+    let value = 0;
 
 }
