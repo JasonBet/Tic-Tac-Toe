@@ -12,9 +12,9 @@ const Gameboard = (function() {
     
     const getBoard = () => board;
 
-    const dropPlayerMark = (cell, player) => {
-        if(cell.getValue() === 0){
-            cell.addPlayerMark(player)
+    const dropPlayerMark = ([row, column], player) => {
+        if(getBoard()[row][column].getValue() === 0){
+            getBoard()[row][column].addPlayerMark(player)
         }
     };
 
@@ -67,7 +67,24 @@ const GameController = (function() {
 
     const printNewRound = () => {
         console.log(`${getActivePlayer().pName}'s turn.`);
+        Gameboard.printBoard();
     };
 
+    const playRound = ([row, column]) => {
+        console.log(`${getActivePlayer().pName} placing mark on ${row},${column}`);
+        Gameboard.dropPlayerMark([row,column], getActivePlayer().playerMark);
+
+        // Add win condition logic
+
+        switchPlayerTurn();
+        printNewRound();
+    };
+
+    printNewRound();
+
+    return {
+        playRound,
+        getActivePlayer
+    };
 
 })();
