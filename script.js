@@ -10,6 +10,20 @@ const Gameboard = (function() {
         }
     }
     
+    const getBoard = () => board;
+
+    const dropPlayerMark = (cell, player) => {
+        if(cell.getValue() === 0){
+            cell.addPlayerMark(player)
+        }
+    };
+
+    const printBoard = () => {
+        const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
+        console.log(boardWithCellValues);
+    };
+
+    return {getBoard, dropPlayerMark, printBoard};
 })();
 
 function Cell() {
@@ -49,4 +63,11 @@ const GameController = (function() {
         // If activePlayer is player 0, switch to player 1, else switch to player 0
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
+    const getActivePlayer = () => activePlayer;
+
+    const printNewRound = () => {
+        console.log(`${getActivePlayer().pName}'s turn.`);
+    };
+
+
 })();
