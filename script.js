@@ -120,3 +120,8 @@ const GameController = (function() {
     };
 
 })();
+
+const ScreenController = (function() {
+    const playerTurnDiv = document.querySelector('.turn');
+    const boardDiv = document.querySelector('.board');
+})();
