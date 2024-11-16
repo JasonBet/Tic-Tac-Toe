@@ -56,11 +56,13 @@ const GameController = (function() {
     const players = [
         {
             pName: playerOneName,
-            playerMark: 1
+            playerMark: 1,
+            playerToken: 'X'
         },
         {
             pName: playerTwoName,
-            playerMark: 2
+            playerMark: 2,
+            playerToken: 'O'
         }
     ];
 
@@ -161,7 +163,14 @@ const ScreenController = (function() {
                 // Add data attribute to identify each cell through its column
                 cellButton.dataset.column = index;
                 cellButton.dataset.row = rowIndex;
-                cellButton.textContent = cell.getValue();
+                if(cell.getValue() !== 0) {
+                    if(cell.getValue() === 1) {
+                        cellButton.textContent = 'X';
+                    }
+                    else if(cell.getValue() === 2) {
+                        cellButton.textContent = 'O';
+                    }
+                }
                 boardDiv.appendChild(cellButton);
             })
         })
