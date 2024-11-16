@@ -70,29 +70,24 @@ const GameController = (function() {
         Gameboard.printBoard();
     };
 
-    const checkWinRow = (mark) => {
+    const checkWinCons = (mark) => {
+        // Check win-con for rows
         for(let i = 0; i < 3; i++){
             for(let j = 0; j < 3; j++){
                 if(Gameboard.getBoard()[i][j].getValue() !== mark){break;}
                 if(j === 2){return victory(mark)};
             }
         }
-        /*
-        if(Gameboard.getBoard()[0][0].getValue() === Gameboard.getBoard()[0][1].getValue() && Gameboard.getBoard()[0][0].getValue() === Gameboard.getBoard()[0][2].getValue() && Gameboard.getBoard()[0][0].getValue() === mark){
-            return victory(mark);
-        } */
-    }
 
-    const checkWinColumn = (mark) => {
+        // Check win-con for columns
         for(let i = 0; i < 3; i++){
             for(let j = 0; j < 3; j++){
                 if(Gameboard.getBoard()[j][i].getValue() !== mark){break;}
                 if(j === 2){return victory(mark)};
             }
         }
-    }
 
-    const checkWinDiagonal = (mark) => {
+        // Check win-con for diagonals
         if(Gameboard.getBoard()[0][0].getValue() === mark && Gameboard.getBoard()[1][1].getValue() === mark && Gameboard.getBoard()[2][2].getValue() === mark) {
             return victory(mark);
         } else if(Gameboard.getBoard()[0][2].getValue() === mark && Gameboard.getBoard()[1][1].getValue() === mark && Gameboard.getBoard()[2][0].getValue() === mark) {
@@ -107,14 +102,8 @@ const GameController = (function() {
         Gameboard.dropPlayerMark([row,column], getActivePlayer().playerMark);
 
         // Add win condition logic
-        checkWinRow(1);
-        checkWinRow(2);
-
-        checkWinColumn(1);
-        checkWinColumn(2);
-
-        checkWinDiagonal(1);
-        checkWinDiagonal(2);
+        checkWinCons(1);
+        checkWinCons(2);
 
         switchPlayerTurn();
         printNewRound();
