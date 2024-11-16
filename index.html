@@ -7,13 +7,30 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    <div class="container">
+    <div class="game-container">
         <h1 class="turn"></h1>
         <div class="board"></div>
         <h1 class="victor"></h1>
         <button class="restart">RESTART GAME</button>
     </div>
-    
+    <div class="player-names">
+        <div class="player1">
+            <h1>Player 1</h1>
+            <form action="" id="change1">
+                <label for="nameChange">New name:</label>
+                <input type="text" name="nameChange" id="nameChange1">
+                <button class="submit" type="submit">CHANGE NAME</button>
+            </form>
+        </div>
+        <div class="player2">
+            <h1>Player 2</h1>
+            <form action="" id="change2">
+                <label for="nameChange">New name:</label>
+                <input type="text" name="nameChange" id="nameChange2">
+                <button class="submit" type="submit">CHANGE NAME</button>
+            </form>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

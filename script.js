@@ -73,6 +73,10 @@ const GameController = (function() {
     }
     const getActivePlayer = () => activePlayer;
 
+    const changePName = (pNum, newName) => {
+        players[pNum-1].pName = newName;
+    }
+
     const printNewRound = () => {
         console.log(`${getActivePlayer().pName}'s turn.`);
         Gameboard.printBoard();
@@ -137,6 +141,7 @@ const GameController = (function() {
     return {
         playRound,
         getActivePlayer,
+        changePName,
         getGameOver,
         resetGameOver
     };
@@ -175,6 +180,25 @@ const ScreenController = (function() {
             })
         })
     }
+
+    let formChangeP1 = document.querySelector('#change1');
+    let formChangeP2 = document.querySelector('#change2');
+
+    formChangeP1.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const newName = e.target.elements.nameChange.value;
+        GameController.changePName(1, newName);
+        updateScreen();
+    });
+
+    formChangeP2.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const newName = e.target.elements.nameChange.value;
+        GameController.changePName(2, newName);
+        updateScreen();
+    });
 
     // Victory & Reset Alert
     const declareVictor = (mark) => {
