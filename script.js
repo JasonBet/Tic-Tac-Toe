@@ -75,7 +75,7 @@ const GameController = (function() {
         for(let i = 0; i < 3; i++){
             for(let j = 0; j < 3; j++){
                 if(Gameboard.getBoard()[i][j].getValue() !== mark){break;}
-                if(j === 2){return victory(mark)};
+                if(j === 2){return true};
             }
         }
 
@@ -83,15 +83,15 @@ const GameController = (function() {
         for(let i = 0; i < 3; i++){
             for(let j = 0; j < 3; j++){
                 if(Gameboard.getBoard()[j][i].getValue() !== mark){break;}
-                if(j === 2){return victory(mark)};
+                if(j === 2){return true};
             }
         }
 
         // Check win-con for diagonals
         if(Gameboard.getBoard()[0][0].getValue() === mark && Gameboard.getBoard()[1][1].getValue() === mark && Gameboard.getBoard()[2][2].getValue() === mark) {
-            return victory(mark);
+            return true;
         } else if(Gameboard.getBoard()[0][2].getValue() === mark && Gameboard.getBoard()[1][1].getValue() === mark && Gameboard.getBoard()[2][0].getValue() === mark) {
-            return victory(mark);
+            return true;
         }
     }
 
@@ -102,8 +102,11 @@ const GameController = (function() {
         Gameboard.dropPlayerMark([row,column], getActivePlayer().playerMark);
 
         // Add win condition logic
-        checkWinCons(1);
-        checkWinCons(2);
+        if(checkWinCons(1)){
+            return victory(1);
+        } else if(checkWinCons(2)){
+            return victory(2);
+        }
 
         switchPlayerTurn();
         printNewRound();
