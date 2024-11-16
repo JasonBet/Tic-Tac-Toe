@@ -95,16 +95,26 @@ const GameController = (function() {
         }
     }
 
-    const victory = (mark) => console.log(`Player ${mark} wins!`);
+    const victory = (mark) => {
+        console.log(`Player ${mark} wins!`);
+
+    }
+
+    let gameOver = false;
+    const getGameOver = () => gameOver;
+    const resetGameOver = () => gameOver = false;
 
     const playRound = ([row, column]) => {
+        if(gameOver) return;
         console.log(`${getActivePlayer().pName} placing mark on ${row},${column}`);
         Gameboard.dropPlayerMark([row,column], getActivePlayer().playerMark);
 
         // Add win condition logic
         if(checkWinCons(1)){
+            gameOver = true;
             return victory(1);
         } else if(checkWinCons(2)){
+            gameOver = true;
             return victory(2);
         }
 
@@ -116,7 +126,9 @@ const GameController = (function() {
 
     return {
         playRound,
-        getActivePlayer
+        getActivePlayer,
+        getGameOver,
+        resetGameOver
     };
 
 })();
@@ -124,4 +136,52 @@ const GameController = (function() {
 const ScreenController = (function() {
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
+    const victor = document.querySelector('.victor');
+
+    const updateScreen = () => {
+        boardDiv.textContent = "";
+
+        playerTurnDiv.textContent = `${GameController.getActivePlayer().pName}'s turn...`;
+
+        // Render board cells
+        Gameboard.getBoard().forEach((row, rowIndex) => {
+            row.forEach((cell, index) => {
+                const cellButton = document.createElement("button");
+                cellButton.classList.add("cell");
+
+                // Add data attribute to identify each cell through its column
+                cellButton.dataset.column = index;
+                cellButton.dataset.row = rowIndex;
+                cellButton.textContent = cell.getValue();
+                boardDiv.appendChild(cellButton);
+            })
+        })
+    }
+
+    // Victory & Reset Alert
+
+    // Event listener for board
+    function clickHandlerBoard(e) {
+        const row = parseInt(e.target.dataset.row);
+        const column = parseInt(e.target.dataset.column);
+        const selectedCell = [row, column];
+        // Check cell was clicked
+        if(!e.target.dataset.row || !e.target.dataset.column) return;
+
+        if(Gameboard.getBoard()[row][column].getValue() !== 0){
+            alert("This box was already clicked!");
+            return;
+        }
+
+        GameController.playRound(selectedCell);
+        if(GameController.getGameOver()) {
+
+        }
+        updateScreen();
+    }
+    boardDiv.addEventListener("click", clickHandlerBoard);
+
+
+    // Initial screen render
+    updateScreen();
 })();
