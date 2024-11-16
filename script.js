@@ -1,13 +1,20 @@
 const Gameboard = (function() {
     const rows = 3;
     const columns = 3;
-    const board = [];
+    let board = [];
 
-    for(let i = 0; i < rows; i++){
-        board[i] = [];
-        for(let j = 0; j < columns; j++) {
-            board[i].push(Cell());
+    const createBoard = () => {
+        for(let i = 0; i < rows; i++){
+            board[i] = [];
+            for(let j = 0; j < columns; j++) {
+                board[i].push(Cell());
+            }
         }
+    }
+
+    const removeBoard = () => {
+        board = [];
+        createBoard();
     }
     
     const getBoard = () => board;
@@ -23,7 +30,8 @@ const Gameboard = (function() {
         console.log(boardWithCellValues);
     };
 
-    return {getBoard, dropPlayerMark, printBoard};
+    createBoard();
+    return {getBoard, dropPlayerMark, printBoard, removeBoard};
 })();
 
 function Cell() {
@@ -137,6 +145,7 @@ const ScreenController = (function() {
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
     const victor = document.querySelector('.victor');
+    const restartButton = document.querySelector('.restart');
 
     const updateScreen = () => {
         boardDiv.textContent = "";
@@ -181,6 +190,13 @@ const ScreenController = (function() {
     }
     boardDiv.addEventListener("click", clickHandlerBoard);
 
+    function resetGame() {
+        GameController.resetGameOver();
+        victor.textContent = '';
+        Gameboard.removeBoard();
+        updateScreen();
+    }
+    restartButton.addEventListener("click", resetGame);
 
     // Initial screen render
     updateScreen();
