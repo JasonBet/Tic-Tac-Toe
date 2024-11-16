@@ -70,11 +70,28 @@ const GameController = (function() {
         Gameboard.printBoard();
     };
 
+    const checkWinRow = (mark) => {
+        for(let i = 0; i < 3; i++){
+            for(let j = 0; j < 3; j++){
+                if(Gameboard.getBoard()[i][j].getValue() !== mark){break;}
+                if(j === 2){return victory(mark)};
+            }
+        }
+        /*
+        if(Gameboard.getBoard()[0][0].getValue() === Gameboard.getBoard()[0][1].getValue() && Gameboard.getBoard()[0][0].getValue() === Gameboard.getBoard()[0][2].getValue() && Gameboard.getBoard()[0][0].getValue() === mark){
+            return victory(mark);
+        } */
+    }
+
+    const victory = (mark) => console.log(`Player ${mark} wins!`);
+
     const playRound = ([row, column]) => {
         console.log(`${getActivePlayer().pName} placing mark on ${row},${column}`);
         Gameboard.dropPlayerMark([row,column], getActivePlayer().playerMark);
 
         // Add win condition logic
+        checkWinRow(1);
+        checkWinRow(2);
 
         switchPlayerTurn();
         printNewRound();
