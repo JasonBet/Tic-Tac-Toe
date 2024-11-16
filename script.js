@@ -92,6 +92,14 @@ const GameController = (function() {
         }
     }
 
+    const checkWinDiagonal = (mark) => {
+        if(Gameboard.getBoard()[0][0].getValue() === mark && Gameboard.getBoard()[1][1].getValue() === mark && Gameboard.getBoard()[2][2].getValue() === mark) {
+            return victory(mark);
+        } else if(Gameboard.getBoard()[0][2].getValue() === mark && Gameboard.getBoard()[1][1].getValue() === mark && Gameboard.getBoard()[2][0].getValue() === mark) {
+            return victory(mark);
+        }
+    }
+
     const victory = (mark) => console.log(`Player ${mark} wins!`);
 
     const playRound = ([row, column]) => {
@@ -104,6 +112,9 @@ const GameController = (function() {
 
         checkWinColumn(1);
         checkWinColumn(2);
+
+        checkWinDiagonal(1);
+        checkWinDiagonal(2);
 
         switchPlayerTurn();
         printNewRound();
