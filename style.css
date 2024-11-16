@@ -19,7 +19,7 @@
     text-align: center;
     font-size: 2rem;
     border: 1px solid black;
-    background: purple;
+    background: blue;
     color: white;
     cursor: pointer;
   }
@@ -29,5 +29,5 @@
   }
 
   .victor {
-    color: blue;
+    color: green;
   }

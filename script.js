@@ -72,6 +72,7 @@ const GameController = (function() {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
     const getActivePlayer = () => activePlayer;
+    const resetActivePlayer = () => players[0];
 
     const changePName = (pNum, newName) => {
         players[pNum-1].pName = newName;
@@ -143,7 +144,8 @@ const GameController = (function() {
         getActivePlayer,
         changePName,
         getGameOver,
-        resetGameOver
+        resetGameOver,
+        resetActivePlayer
     };
 
 })();
@@ -225,6 +227,7 @@ const ScreenController = (function() {
 
     function resetGame() {
         GameController.resetGameOver();
+        GameController.resetActivePlayer();
         victor.textContent = '';
         Gameboard.removeBoard();
         updateScreen();
