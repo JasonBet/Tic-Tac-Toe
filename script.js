@@ -83,6 +83,15 @@ const GameController = (function() {
         } */
     }
 
+    const checkWinColumn = (mark) => {
+        for(let i = 0; i < 3; i++){
+            for(let j = 0; j < 3; j++){
+                if(Gameboard.getBoard()[j][i].getValue() !== mark){break;}
+                if(j === 2){return victory(mark)};
+            }
+        }
+    }
+
     const victory = (mark) => console.log(`Player ${mark} wins!`);
 
     const playRound = ([row, column]) => {
@@ -92,6 +101,9 @@ const GameController = (function() {
         // Add win condition logic
         checkWinRow(1);
         checkWinRow(2);
+
+        checkWinColumn(1);
+        checkWinColumn(2);
 
         switchPlayerTurn();
         printNewRound();
