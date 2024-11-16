@@ -97,7 +97,7 @@ const GameController = (function() {
 
     const victory = (mark) => {
         console.log(`Player ${mark} wins!`);
-
+        ScreenController.declareVictor(mark);
     }
 
     let gameOver = false;
@@ -159,6 +159,9 @@ const ScreenController = (function() {
     }
 
     // Victory & Reset Alert
+    const declareVictor = (mark) => {
+        victor.textContent = `Player ${mark} WINS!!!`;
+    }
 
     // Event listener for board
     function clickHandlerBoard(e) {
@@ -174,9 +177,6 @@ const ScreenController = (function() {
         }
 
         GameController.playRound(selectedCell);
-        if(GameController.getGameOver()) {
-
-        }
         updateScreen();
     }
     boardDiv.addEventListener("click", clickHandlerBoard);
@@ -184,4 +184,8 @@ const ScreenController = (function() {
 
     // Initial screen render
     updateScreen();
+
+    return{
+        declareVictor
+    }
 })();
