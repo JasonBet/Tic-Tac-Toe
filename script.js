@@ -51,18 +51,16 @@ function Cell() {
 
 const GameController = (function() {
 
-    const playerOneName = "Player One";
-    const playerTwoName = "Player Two";
+    let playerOneName = "Player One";
+    let playerTwoName = "Player Two";
     const players = [
         {
             pName: playerOneName,
             playerMark: 1,
-            playerToken: 'X'
         },
         {
             pName: playerTwoName,
             playerMark: 2,
-            playerToken: 'O'
         }
     ];
 
@@ -132,6 +130,8 @@ const GameController = (function() {
         printNewRound();
     };
 
+
+
     printNewRound();
 
     return {
@@ -178,7 +178,7 @@ const ScreenController = (function() {
 
     // Victory & Reset Alert
     const declareVictor = (mark) => {
-        victor.textContent = `Player ${mark} WINS!!!`;
+        victor.textContent = `${GameController.getActivePlayer().pName} WINS!!!`;
     }
 
     // Event listener for board
