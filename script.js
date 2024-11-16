@@ -72,7 +72,7 @@ const GameController = (function() {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     }
     const getActivePlayer = () => activePlayer;
-    const resetActivePlayer = () => players[0];
+    const resetActivePlayer = () => activePlayer = players[0];
 
     const changePName = (pNum, newName) => {
         players[pNum-1].pName = newName;
